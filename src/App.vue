@@ -1,28 +1,24 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<template> 
+  <div class="center-horizontal">
+    <RepositoryView />
+    <IssueView />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import RepositoryView from "./components/RepositoryView.vue";
+import IssueView from "./components/IssueView.vue";
+import queries from"./api/queries.js"
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+	name: "app",
+	components: {
+		RepositoryView,
+		IssueView,
+	},
+	created(){
+		queries.getRepos().then((res)=>{
+			this.$store.commit('setRepos',res);
+		})
+	},
+};
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
